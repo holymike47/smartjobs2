@@ -1,0 +1,6 @@
+company1@email.com
+company2@email.com
+company3@email.com
+candidate1@email.com
+candidate2@email.com
+candidate3@email.com
