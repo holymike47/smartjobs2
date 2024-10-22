@@ -52,7 +52,8 @@ public class SmartJobsApplication {
 
 			}
 		} catch (IOException e) {
-			// handle IO Exception
+			e.printStackTrace();
+			System.exit(0);
 
 		}
 		return jobs;
@@ -61,7 +62,6 @@ public class SmartJobsApplication {
 
 	private static void apply(String userName, List<Jobs> jobs) {
 		String message = "Please enter the ID of a job to apply for it\nEnter Q to quit";
-		// String input = "";
 		int id = 0;
 		boolean applied = false;
 		do {
@@ -96,6 +96,8 @@ public class SmartJobsApplication {
 						print("Thanks, Your application has been submitted");
 					}
 				} catch (IOException e) {
+					e.printStackTrace();
+					System.exit(0);
 				}
 
 			}
@@ -129,14 +131,6 @@ public class SmartJobsApplication {
 						job.setCompany(jobEntry[3]);
 						job.setCandidate(jobEntry[4]);
 						jobs.add(job);
-
-						/*
-						 * job = new AppliedJobs( job.setId(Integer.parseInt(jobEntry[0])),
-						 * job.setTitle(jobEntry[1]), job.setDescription(jobEntry[2]),
-						 * job.setCompany(jobEntry[3]), job.setCandidate(jobEntry[4]) );
-						 * 
-						 */
-
 					}
 
 				} // end for
@@ -159,10 +153,13 @@ public class SmartJobsApplication {
 			if (users.contains(userName)) {
 				userFound = true;
 			}
-		} catch (NoSuchFileException ex) {
+		} catch (NoSuchFileException e) {
 			System.out.println("Job file cannot be located");
-		} catch (IOException ex) {
-			System.out.println("an error occured");
+			e.printStackTrace();
+			System.exit(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return userFound;
 

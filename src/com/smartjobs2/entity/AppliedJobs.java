@@ -11,7 +11,6 @@ public class AppliedJobs {
 	}
 
 	public AppliedJobs(int id, String title, String description, String company, String candidate) {
-		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
