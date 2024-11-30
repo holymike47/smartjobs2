@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import com.smartjobs2.entity.AppliedJobs;
 import com.smartjobs2.entity.Jobs;
 
-public class SmartJobsApplication {
+public class SmartJobsApplication2 {
 	// #
 	private static Scanner scanner = new Scanner(System.in);
 	private static final String jobsFile = "src\\com\\smartjobs2\\resources\\jobs.tsv";
@@ -31,7 +31,7 @@ public class SmartJobsApplication {
 		System.out.println(color + message);
 	}
 
-	public static List<Jobs> getJobs() {
+	private static List<Jobs> getJobs() {
 		List<Jobs> jobs = new ArrayList<Jobs>();
 		Jobs job;
 		try {
@@ -68,7 +68,7 @@ public class SmartJobsApplication {
 		do {
 			String input = getInput(message);
 			try {
-				id = Integer.parseInt(input);
+				id = Integer.parseInt(input) - 1;
 			} catch (NumberFormatException e) {
 				if (input.equalsIgnoreCase("Q")) {
 					print("bye");
@@ -115,7 +115,6 @@ public class SmartJobsApplication {
 			List<String> entries = lines.toList();
 			int count = entries.size();
 			if (count == 0) {
-				print("you have not received any application");
 				return null;
 			} // end if
 			else {
@@ -146,7 +145,7 @@ public class SmartJobsApplication {
 
 	}
 
-	public static boolean verifyUser(String userName) {
+	private static boolean verifyUser(String userName) {
 		boolean userFound = false;
 		try {
 			List<String> users = Files.readAllLines(usersPath);
@@ -237,16 +236,25 @@ public class SmartJobsApplication {
 				if (isCandadate) {
 					String keyword = getInput("Please enter search keyword to view job listing");
 					jobs = getJobs().stream().filter(job -> job.getTitle().contains(keyword)).toList();
-					for (var job : jobs) {
-						print(job.toString());
+
+					if (jobs.size() == 0) {
+						print("No job match your search term");
+					} else {
+						for (var job : jobs) {
+							print(job.toString());
+						}
+						apply(userName, jobs);
 					}
-					apply(userName, jobs);
+
+					// company can view applications submitted to their job posting
 				} else {
 					List<AppliedJobs> appliedJobs = viewApplications(userName);
 					if (appliedJobs != null) {
 						for (var job : appliedJobs) {
 							print(job.toString());
 						}
+					} else {
+						print("you have not yet received any application");
 					}
 
 				}
